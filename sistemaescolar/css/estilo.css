@@ -1,0 +1,172 @@
+body
+{
+	margin: 0px auto 0px auto;
+	user-select: none; 
+}
+
+.contenformulario h1, .opciones h1
+{
+	margin-top: 0px;
+    margin-bottom: 15px;
+    color: #FFFFFF;
+}
+
+.contenformulario, .opciones
+{
+	text-align: center;
+	margin-top: 12%;
+	background-color: #1E8B90;
+	padding: 40px;
+	border-top: 5px #085C61 solid;
+	border-bottom: 5px #085C61 solid;
+}
+
+.opciones{
+	margin-top: 7%;
+}
+
+.contenformulario form ul, .opciones ul
+{
+	padding-left: 0px;
+	list-style: none;
+}
+
+.contenformulario form input, .opciones a
+{
+	color: gray;
+	display: block;
+	font-family: 'Roboto-Regular';
+	border: none;
+	background-color: #FFFFFF;
+	font-size: 1.2em;
+	width: 30%;
+	padding: 5px;
+	padding-left: 10px;
+	margin-top: 0.3em;
+	margin-left: 35%;
+}    
+
+.contenformulario form .registro input, .opciones a
+{
+	margin-top: 1.3em;
+	border-radius: 5px;
+}
+
+.opciones a{
+	text-decoration: none;
+}
+
+
+.contenformulario form .registro input:hover, .opciones a:hover
+{
+	color: #FFFFFF;
+	background-color: #6CB4B8;
+}
+
+.regresar{
+	margin-left: 5%;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.regresar a{
+	text-decoration: none;
+	background-color: #DA4403;
+	color: #FFFFFF;
+	padding: 5px 10px 5px 10px;
+	font-size: 1.2em;
+	border-radius: 3px;
+}
+
+.regresar a:hover{
+	background-color: #D58927;
+}
+
+.eliminar{
+	padding-bottom: 5%;
+}
+
+.eliminar form{
+	margin-left: 5%;
+	padding-top: 20px;
+	padding-bottom: 10px;
+}
+
+.eliminar h2{
+	font-size: 1.3em;
+	margin-left: 5%;
+}
+
+.eliminar form select{
+	font-family: 'Roboto-Regular';
+	font-size: 1em;
+	color: $oscuro;
+    border: 1px solid #FFFFFF;
+    width: 10%;
+	background-color: transparent;	
+	padding-top: 5px;
+	padding-bottom: 5px;	
+}
+
+.eliminar form input{
+	color: gray;
+	font-family: 'Roboto-Regular';
+	border: none;
+	background-color: #1E8B90;
+	font-size: 1.2em;
+	padding: 5px;
+	padding: 5px 10px 5px 10px;
+	color: #FFFFFF;
+}
+
+.eliminar form input:hover{
+	background-color: #6CB4B8;
+}
+
+.consultar table, .eliminar table{
+	padding-bottom: 20px;
+}
+
+.consultar h3{
+	font-size: 1.3em;
+	margin-left: 5%;
+}
+
+.actualizar{
+	margin-left: 5%;
+	padding-bottom: 20px;
+}
+
+.actualizar a{
+	text-decoration: none;
+	background-color: #066A91;
+	color: #FFFFFF;
+	padding: 5px 10px 5px 10px;
+	font-size: 1.2em;
+	border-radius: 3px;
+}
+
+.actualizar a:hover{
+	background-color: #3FBDEF;
+}
+
+table, th, td, tr
+{
+	border-style: solid;
+	border-width: 1px;
+	border-color: lightgray;
+	border-collapse: collapse;
+	color: #000000;
+	padding: 2px;
+}
+
+td, tr, th{
+	background-color: #FFFFFF;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.modificar .contenformulario{
+	margin-top: 0%;
+}
