@@ -1,6 +1,8 @@
 <?php
 
 	//$servidor1 = "192.168.84.77";
+	$servidorWebLogin = 'http://localhost/WebService1/wsLogin.php?wsdl';
+	$servidorWebInsertar ='http://localhost/WebService1/wsInsertar.php?wsdl';
 	$servidor1 = "localhost";
 	$servidor2 = "192.168.84.197";
 	$baseDatos = "sistemaescolar";

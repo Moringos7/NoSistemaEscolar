@@ -25,6 +25,9 @@
 	$Servicio->register("Login",array('User' => 'xsd:string','Password' => 'xsd:string'),array("return" => "tns:InfoLogin"),$ns);
 
 	function conexion(){
+		/*
+		Cambiar valores conexion
+		*/
 		$servidor1 = "localhost";
 		$servidor2 = "192.168.84.197";
 		$baseDatos = "sistemaescolar";

@@ -53,39 +53,48 @@
      <?php
     ReadCursa();
     include 'conexion.php';
+    include_once 'nusoap/nusoap.php';
     if(isset($_POST['idAlumno']))
     {
         $idAlumnov = utf8_decode( $_POST['idAlumno']);
         $idMateriav = utf8_decode( $_POST['IdMateria']);
         $idCalificacionv = utf8_decode( $_POST['Calificacion']);
 
-        if($idAlumnov!="" && $idMateriav!="" && $idCalificacionv!="")
-        {
-            //$insertando = mysqli_query($conexion, "INSERT INTO cursa(IdAlumno,IdMateria,Calificacion) values('$idAlumnov','$idMateriav','$idCalificacionv');");
-            if($idCalificacionv >= 0 && $idCalificacionv <= 100)
-            {
-                $consulta = "INSERT INTO cursa(IdAlumno,IdMateria,Calificacion) values('$idAlumnov','$idMateriav','$idCalificacionv');";
-                $insertando = mysqli_query($conexion, $consulta);
-                
-                insertLog($consulta);
-                mysqli_close($conexion);
-            } else
-            {
-                echo "<script type='text/javascript'>alert('Campo calificacion fuera de rango');window.location.href = '/sistemaescolar/lib/insertarCalificacion.php';</script>";
-            }
-
-        if($insertando)
-        {
-            echo "<script type='text/javascript'>alert('Calificación insertada');window.location.href = '/sistemaescolar/lib/insertarCalificacion.php';</script>";
-            insertLog($consulta);
-        } 
-        else 
-        {
-            echo "<script type='text/javascript'>alert('Calificación no insertada');window.location.href = '/sistemaescolar/lib/insertarCalificacion.php';</script>";
+        $client = new nusoap_client($servidorWebInsertar,true);
+        $err = $client->getError();
+        if ($err) { 
+            echo "<script type='text/javascript'>alert('Error envio Datos'); window.location.href = '/sistemaescolar/iniciarSesion.html';</script>";
         }
+
+        $parametros = array('IdAlumno'=>$idAlumnov,'IdMateria'=>$idMateriav,'Calificacion'=>$idCalificacionv);
+        $result = array();
+        $result = $client->call('InsertarCursa', $parametros);
+
+        if ($client->fault) {
+            echo "<script type='text/javascript'>alert('Error conexion servidor '); window.location.href = '/sistemaescolar/iniciarSesion.html';</script>";
+        }else{
+            if($result['Validacion'])
+            {
+                if($result['ValidacionRango'])
+                {
+                   insertLog($result['Sentencia']);
+                } else
+                {
+                    echo "<script type='text/javascript'>alert('Campo calificacion fuera de rango');window.location.href = '/sistemaescolar/lib/insertarCalificacion.php';</script>";
+                }
+
+                if($result['Validacion'])
+                {
+                    echo "<script type='text/javascript'>alert('Calificación insertada');window.location.href = '/sistemaescolar/lib/insertarCalificacion.php';</script>";
+                    
+                } 
+                else 
+                {
+                    echo "<script type='text/javascript'>alert('Calificación no insertada');window.location.href = '/sistemaescolar/lib/insertarCalificacion.php';</script>";
+                }
+            }
         }
     }
-    //mysqli_close($conexion);
     ?>
      
    

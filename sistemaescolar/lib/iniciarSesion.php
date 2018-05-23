@@ -1,5 +1,6 @@
 <?php 
 	include_once 'nusoap/nusoap.php';
+	include 'conexion.php';
 	if(isset($_POST['user'])&&isset($_POST['pass']))
 	{
 
@@ -7,12 +8,7 @@
 		$pass= utf8_decode($_POST['pass']);*/
 		$user= $_POST['user'];		
 		$pass= $_POST['pass'];
-		
-				
-		//Cambiar ruta de WebService
-		///////////////////////////
-		$client = new nusoap_client('http://localhost/WebService1/servicio.php?wsdl',true);
-		/////////////////////////////
+		$client = new nusoap_client($servidorWebLogin,true);
 		$err = $client->getError();
 		if ($err) {	
 			echo 'Error en Constructor' . $err ; 

@@ -52,28 +52,36 @@
 <?php 
     ReadMateria();
     include 'conexion.php';
-
+    include_once 'nusoap/nusoap.php';
     if(isset($_POST['nombre']))
     {
-        $Nombrev =utf8_decode( $_POST['nombre']);
+        $nombreMateria = $_POST['nombre'];
+        $client = new nusoap_client($servidorWebInsertar,true);
+        $err = $client->getError();
+        if ($err) { 
+            echo "<script type='text/javascript'>alert('Error envio Datos'); window.location.href = '/sistemaescolar/iniciarSesion.html';</script>";
+        }
 
-        $query="INSERT INTO materia(Nombre)values('{$Nombrev}');";
+        $parametros = array('Materia'=>$nombreMateria);
+        $result = array();
+        $result = $client->call('InsertarMateria', $parametros);
 
-
-        if($Nombrev!="")
-        {
-            $insertando = mysqli_query($conexion, $query);
-            insertLog($query);
-            if($insertando)
-            {
-                echo"<script type='text/javascript'>alert('Inserción realizada correctamente'); window.location.href = '/sistemaescolar/lib/insertarMateria.php';</script>";
-            } else 
-            {
-                  echo"<script type='text/javascript'>alert('Error al insertar '); window.location.href = '/sistemaescolar/lib/insertarMateria.php';</script>";
+        if ($client->fault) {
+            echo "<script type='text/javascript'>alert('Error conexion servidor '); window.location.href = '/sistemaescolar/iniciarSesion.html';</script>";
+        }else{
+            if($result['Validador']){
+                insertLog($result['Sentencia']);
+                if($result['Validador'])
+                {
+                    echo"<script type='text/javascript'>alert('Inserción realizada correctamente'); window.location.href = '/sistemaescolar/lib/insertarMateria.php';</script>";
+                } else 
+                {
+                      echo"<script type='text/javascript'>alert('Error al insertar '); window.location.href = '/sistemaescolar/lib/insertarMateria.php';</script>";
+                }
             }
         }
     }
-    mysqli_close($conexion);
+   
 ?>
 
 

@@ -57,26 +57,40 @@
         <a href="/sistemaescolar/index.php">Regresar</a>
     </div>
 <?php
-        ReadAlumno();
-        include 'conexion.php';
-       if(isset($_POST['nombre'])){
-        $Nombrev = utf8_decode($_POST['nombre']);
-        $ApellidoPv = utf8_decode($_POST['ApellidoP']);
-        $ApellidoMv = utf8_decode($_POST['ApellidoM']);
-        if ($Nombrev!="" && $ApellidoPv!=""&& $ApellidoMv!=""){ 
-            $consulta = "INSERT INTO alumno(nombre,apellido_p,apellido_m) values('$Nombrev','$ApellidoPv','$ApellidoMv');";
-        $insertando = mysqli_query($conexion, $consulta);
-        if($insertando)
-        {
-            echo "<script type='text/javascript'>alert('Alumno insertado');window.location.href = '/sistemaescolar/lib/InsertarAlumno.php';</script>";
-            insertLog($consulta);
-        } 
-        else 
-        {
-            echo "<script type='text/javascript'>alert('Alumno no insertado');window.location.href = '/sistemaescolar/lib/InsertarAlumno.php';</script>";
+    ReadAlumno();
+    include 'conexion.php';
+    include_once 'nusoap/nusoap.php';
+    if(isset($_POST['nombre'])){
+
+        $NombreEnvio = utf8_decode($_POST['nombre']);
+        $ApellidoPEnvio = utf8_decode($_POST['ApellidoP']);
+        $ApellidoMEnvio = utf8_decode($_POST['ApellidoM']);    
+
+        $client = new nusoap_client($servidorWebInsertar,true);
+        $err = $client->getError();
+        if ($err) { 
+            echo "<script type='text/javascript'>alert('Error envio Datos'); window.location.href = '/sistemaescolar/iniciarSesion.html';</script>";
+        }
+
+        $parametros = array('Nombre'=>$NombreEnvio,'ApellidoP'=>$ApellidoPEnvio,'ApellidoM'=>$ApellidoMEnvio);
+        $result = array();
+        $result = $client->call('InsertarAlumno', $parametros);
+
+        if ($client->fault) {
+            echo "<script type='text/javascript'>alert('Error conexion servidor '); window.location.href = '/sistemaescolar/iniciarSesion.html';</script>";
+        }else{
+            
+            if($result['Validador'])
+            {
+                echo "<script type='text/javascript'>alert('Alumno insertado');window.location.href = '/sistemaescolar/lib/InsertarAlumno.php';</script>";
+                insertLog($result['Sentencia']);
+            } 
+            else 
+            {
+                echo "<script type='text/javascript'>alert('Alumno no insertado');window.location.href = '/sistemaescolar/lib/InsertarAlumno.php';</script>";
+            }
         }
     }
-        }
 ?>
 
 <center>

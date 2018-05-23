@@ -1,15 +1,16 @@
 <?php
 
 	include_once 'nusoap/nusoap.php';
-	$client = new nusoap_client('http://localhost/WebService1/servicio.php?wsdl',true);
+	$client = new nusoap_client('http://localhost/WebService1/wsInsertar.php?wsdl',true);
 	$err = $client->getError();
 	if ($err) {	
 		echo 'Error en Constructor' . $err ; 
 	}
 	
-	$parametros = array('User' => 'Piña','Password' => 'piña');
+	//$parametros = array('IdAlumno' => 1,'IdMateria'=>25,'Calificacion'=>100);
+	$parametros = array('Materia'=>'2500');
 	$result = array();
-	$result = $client->call('Login', $parametros);
+	$result = $client->call('InsertarMateria', $parametros);
 
 	if ($client->fault) {
 		/*echo 'Fallo: Conexion WebService';*/
@@ -21,13 +22,7 @@
 			/*echo 'Error: Comunicación WebService ' . $err ; */
 			echo "Error: ".$err;
 		} else {		// Muestra el resultado
-			/*var_dump($result['CheckUser']);
-			var_dump($result['CheckPasswordExist']);
-			var_dump($result['CheckPassword']);
-			var_dump($result['SID']);
-			var_dump($result['NombreUsuario']);
-			var_dump($result['Admin']);*/
-			echo $result['NombreUsuario'];
+			var_dump($result);
 		}
 	}
 ?>
