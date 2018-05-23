@@ -8,9 +8,9 @@
 	}
 	
 	//$parametros = array('IdAlumno' => 1,'IdMateria'=>25,'Calificacion'=>100);
-	$parametros = array('Materia'=>'2500');
+	$parametros = array('IdAlumno'=>3,'IdMateria'=>25,'Calificacion' => 103);
 	$result = array();
-	$result = $client->call('InsertarMateria', $parametros);
+	$result = $client->call('InsertarCursa', $parametros);
 
 	if ($client->fault) {
 		/*echo 'Fallo: Conexion WebService';*/

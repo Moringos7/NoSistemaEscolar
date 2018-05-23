@@ -78,6 +78,7 @@
 	function InsertarMateria($Materia){
 		$conexion = conexion();
 		$validador = false;
+		$Materia = utf8_decode($Materia);
 		$query="INSERT INTO materia(Nombre)values('{$Materia}');";
         if($Materia!="")
         {

@@ -62,7 +62,6 @@
 						echo "<script type='text/javascript'>alert('Su contraseña no coincide. '); window.location.href = '/sistemaescolar/iniciarSesion.html';</script> ";
 					}
 				}
-
 				else
 				{
 					echo"<script type='text/javascript'>alert('Su nombre de usuario no coincide. '); window.location.href = '/sistemaescolar/iniciarSesion.html'</script>";

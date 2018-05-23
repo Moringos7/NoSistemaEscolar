@@ -73,25 +73,18 @@
         if ($client->fault) {
             echo "<script type='text/javascript'>alert('Error conexion servidor '); window.location.href = '/sistemaescolar/iniciarSesion.html';</script>";
         }else{
-            if($result['Validacion'])
+            if($result['ValidadorRango'])
             {
-                if($result['ValidacionRango'])
+                if($result['Validador'])
                 {
                    insertLog($result['Sentencia']);
-                } else
-                {
-                    echo "<script type='text/javascript'>alert('Campo calificacion fuera de rango');window.location.href = '/sistemaescolar/lib/insertarCalificacion.php';</script>";
-                }
-
-                if($result['Validacion'])
-                {
-                    echo "<script type='text/javascript'>alert('Calificación insertada');window.location.href = '/sistemaescolar/lib/insertarCalificacion.php';</script>";
-                    
-                } 
-                else 
+                   echo "<script type='text/javascript'>alert('Calificacion insertada');window.location.href = '/sistemaescolar/lib/insertarCalificacion.php';</script>";
+                }else 
                 {
                     echo "<script type='text/javascript'>alert('Calificación no insertada');window.location.href = '/sistemaescolar/lib/insertarCalificacion.php';</script>";
                 }
+            }else{
+                echo "<script type='text/javascript'>alert('Campo calificacion fuera de rango');window.location.href = '/sistemaescolar/lib/insertarCalificacion.php';</script>";
             }
         }
     }
@@ -99,8 +92,6 @@
      
    
     <center>
-
-
         <div>
             <form action="insertarcalificacion.php" method="post">
         <h4>Id Alumno: <input type="" name="idAlumno"></h4> 
